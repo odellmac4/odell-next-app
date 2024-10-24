@@ -1,24 +1,13 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 
-// Allowed origins
-const allowedOrigins = [
-    'https://odell-next-app.vercel.app',
-    'http://localhost:3000',
-];
-
 // CORS headers function
 const corsHeaders = (req: Request) => {
-    const origin = req.headers.get('origin');
     const headers: Record<string, string> = {
+        'Access-Control-Allow-Origin': '*', // Allow any origin
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
     };
-
-    // Check if the origin is in the allowed origins
-    if (allowedOrigins.includes(origin!)) {
-        headers['Access-Control-Allow-Origin'] = origin!;
-    }
 
     return headers;
 };
