@@ -2,18 +2,16 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 
 // CORS headers function
-const corsHeaders = (req: Request) => {
-    const headers: Record<string, string> = {
+const corsHeaders = () => {
+    return {
         'Access-Control-Allow-Origin': '*', // Allow any origin
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
     };
-
-    return headers;
 };
 
 export async function POST(req: Request) {
-    const headers = corsHeaders(req);
+    const headers = corsHeaders();
 
     // Handle preflight requests
     if (req.method === 'OPTIONS') {
@@ -42,7 +40,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-    const headers = corsHeaders(req);
+    const headers = corsHeaders();
 
     // Handle preflight requests
     if (req.method === 'OPTIONS') {
