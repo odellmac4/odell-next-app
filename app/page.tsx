@@ -7,7 +7,6 @@ export default function Home() {
     <main>
       <h1>Hello World!</h1>
       <Link href="/users">Users</Link>
-      <Button color='primary' >My Button</Button>
     </main>
   );
 }
