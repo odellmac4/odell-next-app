@@ -11,7 +11,7 @@ const allowedOrigins = [
 const corsHeaders = (req: Request) => {
     const origin = req.headers.get('origin');
     const headers: Record<string, string> = {
-        'Access-Control-Allow-Methods': 'GET, POST',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
     };
 
@@ -25,6 +25,14 @@ const corsHeaders = (req: Request) => {
 
 export async function POST(req: Request) {
     const headers = corsHeaders(req);
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return new Response(null, {
+            status: 204,
+            headers,
+        });
+    }
 
     const client = await connectToDatabase();
     const { id, name, email } = await req.json();
@@ -46,6 +54,14 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
     const headers = corsHeaders(req);
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return new Response(null, {
+            status: 204,
+            headers,
+        });
+    }
 
     const client = await connectToDatabase();
 
